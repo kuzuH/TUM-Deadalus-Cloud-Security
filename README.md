@@ -16,20 +16,26 @@ Welcome! In this workshop, you will use professional tools to deploy a serverles
 
 **Requirements:**
 
+- Github account: If you dont have one you can create one for free 
+- Laptop with : Mac Terminal, Linux, Windows with WSL 
 - aws cli
 
 ### **Part 1: Setup & Deployment**
 
 ### **Step 1: Get Your AWS Credentials**
 
-Your instructor has provided you with a unique "fruit" name and a password.
+Your instructor has provided you with a unique "fruit" name , a password and API url.
 
-1. Open your WSL/Linux terminal.
-2. Run the `curl` command below, replacing `<your-fruit>` and `<your-password>` with the ones you were given.
+1. Open your terminal
+
+- On Windows: open WSL (Ubuntu) or any Linux shell
+- On macOS/Linux: open Terminal
+
+2. Run this command
+
+- Replace the three placeholders with your values:
 
 Bash
-
-Plain Text
 
 ```
 curl -u "student:<your-password>" https://<instructor-api-url>/<Fruit>
@@ -37,9 +43,16 @@ curl -u "student:<your-password>" https://<instructor-api-url>/<Fruit>
 
 1. The command will return a JSON object. Copy the `AccessKeyId`, `SecretAccessKey`, and `SessionToken` values. You will need them in a moment.
 
+Example:
+
+```
+curl -u "student:P@ssw0rd!" https://api.example.edu/banana
+```
+
+
 ### **Step 2: Fork and Clone the Project**
 
-1. Go to the `TUM-Workshop-Student-Infrastructure` repository on GitHub (Personal) and click the **Fork** button to create your own copy.
+1. Go to the  https://github.com/Spike-Digital-Reply-DE/TUM-Deadalus-Cloud-Security  repository on GitHub (Personal) and click the **Fork** button to create your own copy.
 2. On your fork's GitHub page, click the green `**< > Code**` button and copy the HTTPS URL.
 3. In your terminal, clone your fork:
 
@@ -54,41 +67,32 @@ git clone https://github.com/<your-username>/TUM-Workshop-Student-Infrastructure
 1. Authenticate yourself with your GitHub credentials inside your terminal
     1. Here you have to use your PAT not your password
     2. If you don't have a PAT, create one on your GH Settings -> Developer settings -> PATs -> Tokens (classic) -> Generate new token (classic)
-2. Navigate into the project directory and switch to the `s3` branch:
+2. Navigate into the project directory 
 
 Bash
 
 Plain Text
 
 ```
-cd TUM-Workshop-Student-Infrastructuregit checkout s3
+cd TUM-Deadalus-Cloud-Security
 ```
 
 ### **Step 3: Configure Your Secrets**
 
 You need to provide your credentials and a new secret token to your repository's CI/CD pipeline.
 
-1. **Generate a Token:** In your terminal, run this command to create a unique, random password for your application. Copy the output.
-
-Bash
-
-Plain Text
-
-```
-openssl rand -hex 16
-```
 
 1. **Set Secrets in GitHub:** In your forked repository on GitHub, go to **Settings > Secrets and variables > Actions**. Create the following four secrets:
     - `AWS_ACCESS_KEY_ID`: Paste the `AccessKeyId` you received in Step 1.
     - `AWS_SECRET_ACCESS_KEY`: Paste the `SecretAccessKey` you received.
     - `AWS_SESSION_TOKEN`: Paste the `SessionToken` you received.
-    - `APP_TOKEN`: Paste the random token you just generated.
+
 
 ### **Step 4: Deploy Your Application**
 
 1. Go to the **Actions** tab of your forked repository.
 2. In the left sidebar, click on the **"Deploy Terraform to AWS"** workflow.
-3. Click the **"Run workflow"** button, ensuring the `**s3**` **branch** is selected.
+3. Click the **"Run workflow"** button
 4. Wait for the pipeline to complete successfully. When it's finished, click on the completed run, go to the `Terraform Apply` step, and find the `**api_endpoint**` URL in the output. Copy this URL.
 
 **Step 5: Test Your Application**
@@ -99,8 +103,10 @@ openssl rand -hex 16
 
 Plain Text
 
+Replace placeholders with your values:
+
 ```
-#Replace placeholders with your valuescurl -H "Authorization: Bearer <your_app_token>" "https://<your_api_endpoint>/<StudentRole-Fruit_default>/fruit?bucket=your-bucket&file=fruitsalad.png" > fruitsalad.png
+curl "https://<your_api_endpoint>/<StudentRole-Fruit_default>/fruit?bucket=your-bucket&file=fruitsalad.png" > fruitsalad.png
 ```
 
 ### **Part 2: The Security Lab**
@@ -128,7 +134,7 @@ Bash
 Plain Text
 
 ```
-python3 -m venv prowler-envsource prowler-env/bin/activatepip install prowler
+python3 -m venv prowler-env prowler-env/bin/activate pip install prowler
 ```
 
 1. **Run Prowler:** Run the scan. This can take 5-15 minutes.
@@ -155,8 +161,8 @@ Plain Text
 aws s3 ls s3://company-legacy-data-425861498673/
 ```
 
-1.   
-    You will see a file named `confidential-financials.txt`.
+1.   You will see a file named `confidential-financials.txt`.
+
 2. **The Exploit:** Your application code (`lambda/index.py`) is vulnerable because it trusts user input. Craft a `curl` command to trick your application into fetching the confidential file from the other bucket.
 
 Bash
