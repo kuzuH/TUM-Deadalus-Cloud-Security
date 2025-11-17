@@ -1,5 +1,3 @@
-# main.tf
-
 provider "aws" {
   region = "eu-central-1"
   default_tags {
@@ -8,11 +6,6 @@ provider "aws" {
     }
   }
 }
-
-#provider "aws" {
- # region = "eu-central-1"
- # alias  = "no-default-tags"
-#}
 
 resource "aws_s3_bucket" "web_bucket" {
   bucket = "webapp-bucket-${replace(lower(var.iam_role_name), "studentrole-", "")}"
