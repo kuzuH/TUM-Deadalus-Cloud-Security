@@ -180,7 +180,7 @@ You need to provide your credentials and a new secret token to your repository's
 1. Go to the **Actions** tab of your forked repository.
 2. In the left sidebar, click on the **"Deploy Terraform to AWS"** workflow.
 3. Click the **"Run workflow"** button
-4. Wait for the pipeline to complete successfully. When it's finished, click on the completed run, go to the `Terraform Apply` step, and find the `**api_endpoint**` URL in the output. **Copy this URL.**
+4. Wait for the pipeline to complete successfully. When it's finished, click on the completed run, go to the `Terraform Apply` step, and find the `api_endpoint` URL in the output. **Copy this URL.**
 
 **Step 5: Test Your Application**
 
