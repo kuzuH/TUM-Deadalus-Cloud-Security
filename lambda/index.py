@@ -32,7 +32,6 @@ def auth_handler(event, context):
 
     return response
 
-# --- THIS IS THE VULNERABLE "DIRECT DOWNLOAD" HANDLER ---
 def return_image_handler(event, context):
     # This is the vulnerability: the bucket and file names are taken
     # directly from the user's request without validation.
