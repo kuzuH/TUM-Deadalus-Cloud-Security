@@ -232,7 +232,7 @@ pip install prowler
 prowler aws
 ```
 
-1. **Analyze the Report:** Prowler will create an HTML report in the `output` directory. Open it and filter for S3 findings. You will find a misconfigured bucket named `**company-legacy-data-...**`.
+1. **Analyze the Report:** Prowler will create an HTML report in the `output` directory. Open it and filter for S3 findings. You will find a misconfigured bucket named `company-legacy-data-...`.
 
 ### **Step 3: Investigate and Exploit**
 
