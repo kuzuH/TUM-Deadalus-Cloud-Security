@@ -243,8 +243,8 @@ aws <resource_type> ls <vulnerable_resource>/
 ```
 
 2.   You will receive the name of a file as output.
-3. **The Exploit:** Your application code (`lambda/index.py`) has a security misconfiguration.
-4. Find and exploit the vulnerability to exfiltrate the file containing sensitive data.
+3. **The Vulnerability:** Your application code (`lambda/index.py`) has a security misconfiguration.
+4. **Exploitation and Exfiltration**: Find and exploit the vulnerability to exfiltrate the file containing sensitive data.
 5. **View the Secret:** The command will download and print the contents of the file into the file, that you named in your command. Congratulations, you have completed the hack!
 
 ---
