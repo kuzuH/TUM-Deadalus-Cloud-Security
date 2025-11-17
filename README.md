@@ -261,4 +261,4 @@ To avoid any unnecessary costs, you must delete all the resources you created.
 
 1. Go to the **Actions** tab of your forked repository.
 2. In the left sidebar, click on the **"Terraform Destroy"** workflow.
-3. Click the **"Run workflow"** button, ensuring the `**s3**` **branch** is selected
+3. Click the **"Run workflow"** button.
