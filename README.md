@@ -207,7 +207,7 @@ Now that your base infrastructure is running, your task is to expand it using Te
 
 1.  **Add a New Image:**
     * Find any small image file (e.g., a logo or an icon) on your computer.
-    * Save it into the `image/` folder of your cloned repository and name.
+    * Save it into the `image/` folder of your cloned repository.
 
 2.  **Update Terraform Code:**
     * Open the `s3.tf` file in your code editor.
