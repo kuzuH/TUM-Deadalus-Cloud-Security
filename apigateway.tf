@@ -85,6 +85,12 @@ resource "aws_apigatewayv2_route" "lambda_route" {
   ]
 }
 
+resource "aws_cloudwatch_log_group" "api_gateway_logs" {
+  name              = "/aws/api-gateway/${aws_apigatewayv2_api.http_api.name}"
+  retention_in_days = 7
+  depends_on = [aws_apigatewayv2_api.http_api]
+}
+
 
 
 
