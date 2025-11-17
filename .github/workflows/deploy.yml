@@ -5,8 +5,8 @@ on:
 
 
 permissions:
-  id-token: write   # This is required for requesting the JWT
-  contents: read    # This is required for actions/checkout   
+  id-token: write   # required for requesting the JWT
+  contents: read    # required for actions/checkout   
 
 jobs:
 
@@ -16,9 +16,6 @@ jobs:
     
     env:
       TF_VAR_static_token: ${{ secrets.APP_TOKEN }} 
-      # students will have to generate their own token
-      # using a free online website
-      # or through ubuntu terminal with this command: openssl rand -hex 16
 
     steps:
     - name: Checkout
