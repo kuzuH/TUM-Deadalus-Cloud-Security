@@ -213,23 +213,10 @@ Now that your base infrastructure is running, your task is to expand it using Te
     * Open the `s3.tf` file in your code editor.
     * Add a new `aws_s3_object` resource block to upload this new file.
 
-    ```
-    resource "aws_s3_object" "second_image" {
-      bucket = aws_s3_bucket.web_bucket.id
-      key    = "<your_image>"
-      source = "image/<your_image>"
-      
-      # Apply the required tag
-      tags = {
-        TerraformManagedBy = var.iam_role_name
-      }
-    }
-    ```
-
 3.  **Deploy Changes:**
     * Commit and push your changes to GitHub to trigger the deployment.
 
-    ```bash
+    ```
     git add .
     git commit -m "Add second image via Terraform"
     git push
@@ -237,11 +224,7 @@ Now that your base infrastructure is running, your task is to expand it using Te
     * Watch the **Actions** tab in GitHub. The workflow should run automatically (or trigger it manually if needed) and apply the changes.
 
 4.  **Verify the New Image:**
-    * Once the deployment succeeds, try to retrieve this new image using your API.
-
-    ```bash
-    curl -v "https://<your_api_endpoint>/<your_stage_name>/fruit?bucket=webapp-bucket-<your-fruit>&file=task2.jpg" > downloaded_task2.png
-    ```
+    * Once the deployment succeeds, try to retrieve this new image using your API, adjusting the command you executed before.
     * If successful, you have deployed content using Infrastructure as Code!
 
 ### **Part 3: The Security Lab**
@@ -291,7 +274,7 @@ aws <resource_type> ls <vulnerable_resource>/
 
 ---
 
-### **Part 3: Cleanup**
+### **Part 4: Cleanup**
 
 To avoid any unnecessary costs, you must delete all the resources you created.
 
