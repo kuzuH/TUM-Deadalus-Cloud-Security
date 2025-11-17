@@ -201,8 +201,50 @@ curl "https://<your_api_endpoint>/StudentRole-<Fruit>_default/fruit?bucket=<your
     * **On macOS:** Run `open fruitsalad.png`.
 
 ---
+## Part 2: Practice Infrastructure as Code
 
-### **Part 2: The Security Lab**
+Now that your base infrastructure is running, your task is to expand it using Terraform code. You will add a second image to the repository and deploy it automatically.
+
+1.  **Add a New Image:**
+    * Find any small image file (e.g., a logo or an icon) on your computer.
+    * Save it into the `image/` folder of your cloned repository and name.
+
+2.  **Update Terraform Code:**
+    * Open the `s3.tf` file in your code editor.
+    * Add a new `aws_s3_object` resource block to upload this new file.
+
+    ```
+    resource "aws_s3_object" "second_image" {
+      bucket = aws_s3_bucket.web_bucket.id
+      key    = "<your_image>"
+      source = "image/<your_image>"
+      
+      # Apply the required tag
+      tags = {
+        TerraformManagedBy = var.iam_role_name
+      }
+    }
+    ```
+
+3.  **Deploy Changes:**
+    * Commit and push your changes to GitHub to trigger the deployment.
+
+    ```bash
+    git add .
+    git commit -m "Add second image via Terraform"
+    git push
+    ```
+    * Watch the **Actions** tab in GitHub. The workflow should run automatically (or trigger it manually if needed) and apply the changes.
+
+4.  **Verify the New Image:**
+    * Once the deployment succeeds, try to retrieve this new image using your API.
+
+    ```bash
+    curl -v "https://<your_api_endpoint>/<your_stage_name>/fruit?bucket=webapp-bucket-<your-fruit>&file=task2.jpg" > downloaded_task2.png
+    ```
+    * If successful, you have deployed content using Infrastructure as Code!
+
+### **Part 3: The Security Lab**
 
 ### **Step 1: Configure aws credentials**
 
