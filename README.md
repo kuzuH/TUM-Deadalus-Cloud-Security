@@ -150,7 +150,7 @@ curl -u "student:P@ssw0rd!" https://api.example.edu/banana
 ### **Step 2: Fork and Clone the Project**
 
 1. Go to the  https://github.com/Spike-Digital-Reply-DE/TUM-Deadalus-Cloud-Security  repository on GitHub (Personal) and click the **Fork** button to create your own copy.
-2. On your fork's GitHub page, click the green `**< > Code**` button and copy the HTTPS URL.
+2. On your fork's GitHub page, click the green `< > Code` button and copy the HTTPS URL.
 3. In your terminal, clone your fork:
 
 ```
