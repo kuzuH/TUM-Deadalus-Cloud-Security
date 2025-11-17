@@ -9,8 +9,6 @@ provider "aws" {
 
 resource "aws_s3_bucket" "web_bucket" {
   bucket = "webapp-bucket-${replace(lower(var.iam_role_name), "studentrole-", "")}"
- # provider = aws.no-default-tags
-
 }
 
 resource "aws_s3_bucket_policy" "web_bucket_policy" {
