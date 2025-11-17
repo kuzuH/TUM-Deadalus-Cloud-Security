@@ -10,12 +10,12 @@ Welcome! In this workshop, you will use professional tools to deploy a serverles
 - Use Prowler to perform a security audit.
 - Discover and exploit a common web application vulnerability.
 
----
-
 **Requirements:**
 
 - Github account: If you dont have one you can create one for free 
-- Laptop with : Mac Terminal, Linux, Windows with WSL 
+- Laptop with : Mac Terminal, Linux, Windows with WSL
+
+---
 
 ## Part 0: Environment Setup
 
@@ -118,6 +118,8 @@ You will run all commands in a terminal.
    sudo apt install python3-full python3-pip python3-venv
    ```
 
+---
+
 ### **Part 1: Setup & Deployment**
 
 ### **Step 1: Get Your AWS Credentials**
@@ -129,21 +131,21 @@ Your instructor has provided you with a unique "fruit" name , a password and API
 - On Windows: open WSL (Ubuntu) or any Linux shell
 - On macOS/Linux: open Terminal
 
-2. Run this command
-
-- Replace the three placeholders with your values:
+2. Run the `curl` command below, replacing `<your-password>`, <instructor-api-url>, and `<Fruit>` with the ones you were given.
 
 ```
 curl -u "student:<your-password>" https://<instructor-api-url>/<Fruit>
 ```
-
-1. The command will return a JSON object. Copy the `AccessKeyId`, `SecretAccessKey`, and `SessionToken` values. You will need them in a moment.
 
 Example:
 
 ```
 curl -u "student:P@ssw0rd!" https://api.example.edu/banana
 ```
+
+3. The command will return a JSON object. **Keep this terminal window open** or copy the `AccessKeyId`, `SecretAccessKey`, and `SessionToken` values. You will need them in a moment.
+
+
 
 ### **Step 2: Fork and Clone the Project**
 
@@ -155,10 +157,10 @@ curl -u "student:P@ssw0rd!" https://api.example.edu/banana
 git clone https://github.com/<your-username>/TUM-Workshop-Student-Infrastructure.git
 ```
 
-1. Authenticate yourself with your GitHub credentials inside your terminal
-    1. Here you have to use your PAT not your password
-    2. If you don't have a PAT, create one on your GH Settings -> Developer settings -> PATs -> Tokens (classic) -> Generate new token (classic)
-2. Navigate into the project directory 
+4. Authenticate yourself with your GitHub credentials inside your terminal
+    a. Here you have to use your PAT not your password
+    b. If you don't have a PAT, create one on your GH Settings -> Developer settings -> PATs -> Tokens (classic) -> Generate new token (classic)
+5. Navigate into the project directory 
 
 ```
 cd TUM-Deadalus-Cloud-Security
@@ -178,19 +180,27 @@ You need to provide your credentials and a new secret token to your repository's
 1. Go to the **Actions** tab of your forked repository.
 2. In the left sidebar, click on the **"Deploy Terraform to AWS"** workflow.
 3. Click the **"Run workflow"** button
-4. Wait for the pipeline to complete successfully. When it's finished, click on the completed run, go to the `Terraform Apply` step, and find the `**api_endpoint**` URL in the output. Copy this URL.
+4. Wait for the pipeline to complete successfully. When it's finished, click on the completed run, go to the `Terraform Apply` step, and find the `**api_endpoint**` URL in the output. **Copy this URL.**
 
 **Step 5: Test Your Application**
 
 1. Call the API URL with your bucket, that you both got from your workflow outputs, and also with your token, that you generated.
-2. After running the command you should have the image on your machine.
-3. Run explorer.exe . to open the image.
 
-Replace placeholders with your values:
+Replace the placeholders with your values.
+* `<your_api_endpoint>`: The URL you just copied.
+* `<your-bucket-name>`: The name of the bucket you created in your `main.tf` file (e.g., `webapp-bucket-guava`).
+* `<Fruit> : Your assigned fruit.
 
 ```
 curl "https://<your_api_endpoint>/<StudentRole-Fruit_default>/fruit?bucket=your-bucket&file=fruitsalad.png" > fruitsalad.png
 ```
+
+2. After running the command you should have a `fruitsalad.png` file in your directory.
+3. To view the image:
+    * **On Linus / WSL:** Run `explorer.exe .` to open the folder in Windows Explorer.
+    * **On macOS:** Run `open fruitsalad.png`.
+
+---
 
 ### **Part 2: The Security Lab**
 
@@ -199,7 +209,9 @@ curl "https://<your_api_endpoint>/<StudentRole-Fruit_default>/fruit?bucket=your-
 1. **Configure your CLI:** In your terminal, run the following three commands, pasting in the AWS credentials from Step 1.
 
 ```
-export AWS_ACCESS_KEY_ID=<PASTE_YOUR_ACCESS_KEY_ID>export AWS_SECRET_ACCESS_KEY=<PASTE_YOUR_SECRET_ACCESS_KEY>export AWS_SESSION_TOKEN=<PASTE_YOUR_SESSION_TOKEN>
+export AWS_ACCESS_KEY_ID=<PASTE_YOUR_ACCESS_KEY_ID>
+export AWS_SECRET_ACCESS_KEY=<PASTE_YOUR_SECRET_ACCESS_KEY>
+export AWS_SESSION_TOKEN=<PASTE_YOUR_SESSION_TOKEN>
 ```
 
 ### **Step 2: The Security Audit (Discovery)**
@@ -209,7 +221,9 @@ Now you will act as a security auditor to find misconfigurations.
 1. **Install Prowler:** We will use a Python virtual environment to keep our system clean.
 
 ```
-python3 -m venv prowler-env prowler-env/bin/activate pip install prowler
+python3 -m venv prowler-env
+prowler-env/bin/activate
+pip install prowler
 ```
 
 1. **Run Prowler:** Run the scan. This can take 5-15 minutes.
@@ -231,9 +245,10 @@ aws s3 ls s3://company-legacy-data-425861498673/
 1.   You will see a file named `confidential-financials.txt`.
 
 2. **The Exploit:** Your application code (`lambda/index.py`) is vulnerable because it trusts user input. Craft a `curl` command to trick your application into fetching the confidential file from the other bucket.
+3. Replace placeholders with your values
 
 ```
-# Replace placeholders with your valuescurl -H "Authorization: Bearer <your_app_token>" "https://<your_api_endpoint>/<StudentRole-Fruit_default>/fruit?bucket=company-legacy-data-425861498673&file=confidential-financials.txt" > financials.txt
+curl -H "Authorization: Bearer <your_app_token>" "https://<your_api_endpoint>/<StudentRole-Fruit_default>/fruit?bucket=company-legacy-data-425861498673&file=confidential-financials.txt" > financials.txt
 ```
 
 1. **View the Secret:** The command will print the contents of `confidential-financials.txt` directly to your terminal. Congratulations, you have completed the hack!
