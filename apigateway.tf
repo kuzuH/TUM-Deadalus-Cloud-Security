@@ -1,4 +1,3 @@
-
 # API Gateway
 # Defines the core HTTP API and its public stage.
 resource "aws_apigatewayv2_api" "http_api" {
