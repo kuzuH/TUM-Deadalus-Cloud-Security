@@ -189,7 +189,7 @@ You need to provide your credentials and a new secret token to your repository's
 Replace the placeholders with your values.
 * `<your_api_endpoint>`: The URL you just copied.
 * `<your-bucket-name>`: The name of the bucket you created in your `main.tf` file (e.g., `webapp-bucket-guava`).
-* `<Fruit> : Your assigned fruit.
+* `<Fruit>`: Your assigned fruit.
 
 ```
 curl "https://<your_api_endpoint>/<StudentRole-Fruit_default>/fruit?bucket=your-bucket&file=fruitsalad.png" > fruitsalad.png
