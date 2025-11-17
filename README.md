@@ -1,7 +1,5 @@
 ### **AWS IaC & Security Workshop Guide**
 
-README on github
-
 Welcome! In this workshop, you will use professional tools to deploy a serverless web application to AWS and then act as a security auditor to find and exploit a critical vulnerability.
 
 **Objectives:**
@@ -18,7 +16,107 @@ Welcome! In this workshop, you will use professional tools to deploy a serverles
 
 - Github account: If you dont have one you can create one for free 
 - Laptop with : Mac Terminal, Linux, Windows with WSL 
-- aws cli
+
+## Part 0: Environment Setup
+
+Before you begin, you must set up your local machine with the necessary tools.
+
+### Step 1: Get a Terminal
+
+You will run all commands in a terminal.
+
+* **On macOS:** You are all set. Open the **Terminal** app.
+* **On Linux:** You are all set. Open your standard terminal.
+* **On Windows:** You must install **Windows Subsystem for Linux (WSL)**.
+1. Open **PowerShell** as an **Administrator**.
+2. Run the following command to install WSL and a default Ubuntu Linux distribution:
+   
+     ```
+     wsl --install
+     ```
+     
+3. Restart your computer when prompted.
+4. After restarting, open **Ubuntu** from your Start Menu. **You must run all subsequent commands inside this Ubuntu (WSL) terminal.**
+
+### Step 2: Install Git
+
+* **On macOS:**
+1. First, install the Homebrew package manager (if you don't have it):
+
+     ```
+     /bin/bash -c "$(curl -fsSL [https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh](https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh))"
+     ```
+     
+2. Now, install `git`:
+   
+     ```
+     brew install git
+     ```
+   
+* **On Linux / WSL (Ubuntu):**
+
+   ```
+   sudo apt update
+   sudo apt install git -y
+   ```
+
+### Step 3: Install the AWS CLI (v2)
+
+* **On macOS:**
+1. Download the official `.pkg` installer:
+
+   ```
+   curl "[https://awscli.amazonaws.com/AWSCLIV2.pkg](https://awscli.amazonaws.com/AWSCLIV2.pkg)" -o "AWSCLIV2.pkg"
+   ```
+   
+2. Run the installer:
+   
+   ```
+   sudo installer -pkg AWSCLIV2.pkg -target /
+   ```
+   
+* **On Linux / WSL (Ubuntu):**
+1. Download the installer:
+   
+   ```
+   curl "[https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip](https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip)" -o "awscliv2.zip"
+   ```
+   
+2. Unzip the installer:
+   
+   ```
+   sudo apt install unzip -y
+   unzip awscliv2.zip
+   ```
+
+3. Run the installer:
+   
+   ```
+   sudo ./aws/install
+   ```
+
+4. Verify the installation:
+
+   ```
+   aws --version
+   ```
+
+### Step 4: Install Python & Pip (for Prowler)
+
+* **On macOS:**
+1. Install Python 3 and Pip using Homebrew:
+   
+   ```
+   brew install python3
+   ```
+
+* **On Linux / WSL (Ubuntu):**
+1. Install the necessary Python packages:
+   
+   ```
+   sudo apt update
+   sudo apt install python3-full python3-pip python3-venv
+   ```
 
 ### **Part 1: Setup & Deployment**
 
@@ -35,8 +133,6 @@ Your instructor has provided you with a unique "fruit" name , a password and API
 
 - Replace the three placeholders with your values:
 
-Bash
-
 ```
 curl -u "student:<your-password>" https://<instructor-api-url>/<Fruit>
 ```
@@ -49,16 +145,11 @@ Example:
 curl -u "student:P@ssw0rd!" https://api.example.edu/banana
 ```
 
-
 ### **Step 2: Fork and Clone the Project**
 
 1. Go to the  https://github.com/Spike-Digital-Reply-DE/TUM-Deadalus-Cloud-Security  repository on GitHub (Personal) and click the **Fork** button to create your own copy.
 2. On your fork's GitHub page, click the green `**< > Code**` button and copy the HTTPS URL.
 3. In your terminal, clone your fork:
-
-Bash
-
-Plain Text
 
 ```
 git clone https://github.com/<your-username>/TUM-Workshop-Student-Infrastructure.git
@@ -69,10 +160,6 @@ git clone https://github.com/<your-username>/TUM-Workshop-Student-Infrastructure
     2. If you don't have a PAT, create one on your GH Settings -> Developer settings -> PATs -> Tokens (classic) -> Generate new token (classic)
 2. Navigate into the project directory 
 
-Bash
-
-Plain Text
-
 ```
 cd TUM-Deadalus-Cloud-Security
 ```
@@ -81,12 +168,10 @@ cd TUM-Deadalus-Cloud-Security
 
 You need to provide your credentials and a new secret token to your repository's CI/CD pipeline.
 
-
 1. **Set Secrets in GitHub:** In your forked repository on GitHub, go to **Settings > Secrets and variables > Actions**. Create the following four secrets:
     - `AWS_ACCESS_KEY_ID`: Paste the `AccessKeyId` you received in Step 1.
     - `AWS_SECRET_ACCESS_KEY`: Paste the `SecretAccessKey` you received.
     - `AWS_SESSION_TOKEN`: Paste the `SessionToken` you received.
-
 
 ### **Step 4: Deploy Your Application**
 
@@ -101,8 +186,6 @@ You need to provide your credentials and a new secret token to your repository's
 2. After running the command you should have the image on your machine.
 3. Run explorer.exe . to open the image.
 
-Plain Text
-
 Replace placeholders with your values:
 
 ```
@@ -115,10 +198,6 @@ curl "https://<your_api_endpoint>/<StudentRole-Fruit_default>/fruit?bucket=your-
 
 1. **Configure your CLI:** In your terminal, run the following three commands, pasting in the AWS credentials from Step 1.
 
-Bash
-
-Plain Text
-
 ```
 export AWS_ACCESS_KEY_ID=<PASTE_YOUR_ACCESS_KEY_ID>export AWS_SECRET_ACCESS_KEY=<PASTE_YOUR_SECRET_ACCESS_KEY>export AWS_SESSION_TOKEN=<PASTE_YOUR_SESSION_TOKEN>
 ```
@@ -129,19 +208,11 @@ Now you will act as a security auditor to find misconfigurations.
 
 1. **Install Prowler:** We will use a Python virtual environment to keep our system clean.
 
-Bash
-
-Plain Text
-
 ```
 python3 -m venv prowler-env prowler-env/bin/activate pip install prowler
 ```
 
 1. **Run Prowler:** Run the scan. This can take 5-15 minutes.
-
-Bash
-
-Plain Text
 
 ```
 prowler aws
@@ -153,10 +224,6 @@ prowler aws
 
 1. **Find the Target File:** Use the AWS CLI to see what's inside the vulnerable bucket you found.
 
-Bash
-
-Plain Text
-
 ```
 aws s3 ls s3://company-legacy-data-425861498673/
 ```
@@ -164,10 +231,6 @@ aws s3 ls s3://company-legacy-data-425861498673/
 1.   You will see a file named `confidential-financials.txt`.
 
 2. **The Exploit:** Your application code (`lambda/index.py`) is vulnerable because it trusts user input. Craft a `curl` command to trick your application into fetching the confidential file from the other bucket.
-
-Bash
-
-Plain Text
 
 ```
 # Replace placeholders with your valuescurl -H "Authorization: Bearer <your_app_token>" "https://<your_api_endpoint>/<StudentRole-Fruit_default>/fruit?bucket=company-legacy-data-425861498673&file=confidential-financials.txt" > financials.txt
