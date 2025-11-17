@@ -14,7 +14,7 @@ resource "aws_lambda_function" "web_lambda" {
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
 }
 
-# The Lambda Authorizer function (no changes needed).
+# The Lambda Authorizer function.
 resource "aws_lambda_function" "pat_auth_lambda" {
   function_name    = "${var.iam_role_name}_pat_auth_lambda"
   role             = data.aws_iam_role.pat_auth_lambda_exec_role.arn
