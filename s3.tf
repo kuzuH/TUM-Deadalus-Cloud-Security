@@ -1,12 +1,3 @@
-provider "aws" {
-  region = "eu-central-1"
-  default_tags {
-    tags = {
-      TerraformManagedBy = var.iam_role_name
-    }
-  }
-}
-
 resource "aws_s3_bucket" "web_bucket" {
   bucket = "webapp-bucket-${replace(lower(var.iam_role_name), "studentrole-", "")}"
 }
