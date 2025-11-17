@@ -232,26 +232,20 @@ pip install prowler
 prowler aws
 ```
 
-1. **Analyze the Report:** Prowler will create an HTML report in the `output` directory. Open it and filter for S3 findings. You will find a misconfigured bucket named `company-legacy-data-...`.
+1. **Analyze the Report:** Prowler will create an HTML report in the `output` directory. Open it and filter for S3 findings. Tip: Look for resources that could potentially contain sensitive data.
 
 ### **Step 3: Investigate and Exploit**
 
-1. **Find the Target File:** Use the AWS CLI to see what's inside the vulnerable bucket you found.
+1. **Find the Target File:** Use the AWS CLI to see what's inside the vulnerable resource you found.
 
 ```
-aws s3 ls s3://company-legacy-data-425861498673/
+aws <resource_type> ls <vulnerable_resource>/
 ```
 
-1.   You will see a file named `confidential-financials.txt`.
-
-2. **The Exploit:** Your application code (`lambda/index.py`) is vulnerable because it trusts user input. Craft a `curl` command to trick your application into fetching the confidential file from the other bucket.
-3. Replace placeholders with your values
-
-```
-curl -v "https://<your_api_endpoint>/<StudentRole-Fruit_default>/fruit?bucket=company-legacy-data-425861498673&file=confidential-financials.txt" > financials.txt
-```
-
-1. **View the Secret:** The command will print the contents of `confidential-financials.txt` directly to your terminal. Congratulations, you have completed the hack!
+2.   You will receive the name of a file as output.
+3. **The Exploit:** Your application code (`lambda/index.py`) has a security misconfiguration.
+4. Find and exploit the vulnerability to exfiltrate the file containing sensitive data.
+5. **View the Secret:** The command will download and print the contents of the file into the file, that you named in your command. Congratulations, you have completed the hack!
 
 ---
 
