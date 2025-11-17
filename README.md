@@ -131,7 +131,7 @@ Your instructor has provided you with a unique "fruit" name , a password and API
 - On Windows: open WSL (Ubuntu) or any Linux shell
 - On macOS/Linux: open Terminal
 
-2. Run the `curl` command below, replacing `<your-password>`, <instructor-api-url>, and `<Fruit>` with the ones you were given.
+2. Run the `curl` command below, replacing `<your-password>`, `<instructor-api-url>`, and `<Fruit>` with the ones you were given.
 
 ```
 curl -u "student:<your-password>" https://<instructor-api-url>/<Fruit>
