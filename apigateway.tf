@@ -1,7 +1,6 @@
-#================================================================
-# COMPONENT: API Gateway
-# Description: Defines the core HTTP API and its public stage.
-#================================================================
+
+# API Gateway
+# Defines the core HTTP API and its public stage.
 resource "aws_apigatewayv2_api" "http_api" {
   name          = "${var.iam_role_name}_webapp_api"
   protocol_type = "HTTP"
@@ -33,10 +32,9 @@ resource "aws_apigatewayv2_stage" "default" {
   }
 }
 
-#================================================================
-# COMPONENT: Backend Lambda Integration
-# Description: Configures the integration with the primary web application Lambda.
-#================================================================
+# Backend Lambda Integration
+# Configures the integration with the primary web application Lambda.
+
 
 resource "aws_apigatewayv2_integration" "lambda_integration" {
   api_id           = aws_apigatewayv2_api.http_api.id
@@ -53,12 +51,8 @@ resource "aws_lambda_permission" "api_gateway_invoke-web_lambda" {
   source_arn    = "${aws_apigatewayv2_api.http_api.execution_arn}/*/*"
 }
 
-
-#================================================================
-# COMPONENT: Authorizer & Secured Route
-# Description: Defines the custom authorizer and the specific route it protects.
-#================================================================
-
+# Authorizer & Secured Route
+# Defines the custom authorizer and the specific route it protects.
 
 resource "aws_apigatewayv2_authorizer" "pat_lambda_auth" {
   name                       = "${var.iam_role_name}_pat_lambda_authorizer"
@@ -85,7 +79,6 @@ resource "aws_apigatewayv2_route" "lambda_route" {
   #authorizer_id      = aws_apigatewayv2_authorizer.pat_lambda_auth.id
   authorization_type = "NONE"
 
-  # it must destroy this route before it can destroy the authorizer and integration.
   depends_on = [
     aws_apigatewayv2_authorizer.pat_lambda_auth,
     aws_apigatewayv2_integration.lambda_integration
