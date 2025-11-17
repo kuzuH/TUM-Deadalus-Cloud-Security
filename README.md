@@ -226,13 +226,13 @@ prowler-env/bin/activate
 pip install prowler
 ```
 
-1. **Run Prowler:** Run the scan. This can take 5-15 minutes.
+2. **Run Prowler:** Run the scan. This can take 5-15 minutes.
 
 ```
 prowler aws
 ```
 
-1. **Analyze the Report:** Prowler will create an HTML report in the `output` directory. Open it and filter for S3 findings. Tip: Look for resources that could potentially contain sensitive data.
+3. **Analyze the Report:** Prowler will create an HTML report in the `output` directory. Open it and filter for S3 findings. Tip: Look for resources that could potentially contain sensitive data.
 
 ### **Step 3: Investigate and Exploit**
 
