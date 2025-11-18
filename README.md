@@ -79,7 +79,7 @@ You will run all commands in a terminal.
 1. Download the installer:
    
    ```
-   curl "[https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip](https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip)" -o "awscliv2.zip"
+      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
    ```
    
 2. Unzip the installer:
@@ -168,12 +168,13 @@ cd TUM-Deadalus-Cloud-Security
 
 ### **Step 3: Configure Your Secrets**
 
-You need to provide your credentials and a new secret token to your repository's CI/CD pipeline.
+You need to provide your credentials to your repository's CI/CD pipeline.
 
-1. **Set Secrets in GitHub:** In your forked repository on GitHub, go to **Settings > Secrets and variables > Actions**. Create the following four secrets:
+1. **Set Secrets in GitHub:** In your forked repository on GitHub, go to **Settings > Secrets and variables > Actions**. Create the following three **Repository** secrets:
     - `AWS_ACCESS_KEY_ID`: Paste the `AccessKeyId` you received in Step 1.
-    - `AWS_SECRET_ACCESS_KEY`: Paste the `SecretAccessKey` you received.
-    - `AWS_SESSION_TOKEN`: Paste the `SessionToken` you received.
+    - `AWS_SECRET_ACCESS_KEY`: Paste also the `SecretAccessKey` you received.
+    - `AWS_SESSION_TOKEN`: Paste also the `SessionToken` you received.
+    - **Attention:** Paste only the key without quotation marks inside the secrets variables.
 
 ### **Step 4: Deploy Your Application**
 
