@@ -140,7 +140,7 @@ curl -u "student:<your-password>" https://<instructor-api-url>/<Fruit>
 Example:
 
 ```
-curl -u "student:P@ssw0rd!" https://api.example.edu/banana
+curl -u "student:P@ssw0rd!" https://api.example.edu/Banana
 ```
 
 3. The command will return a JSON object. **Keep this terminal window open** or copy the `AccessKeyId`, `SecretAccessKey`, and `SessionToken` values. You will need them in a moment.
