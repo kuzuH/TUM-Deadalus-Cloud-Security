@@ -170,7 +170,7 @@ cd TUM-Deadalus-Cloud-Security
 
 You need to provide your credentials and a new secret token to your repository's CI/CD pipeline.
 
-1. **Set Secrets in GitHub:** In your forked repository on GitHub, go to **Settings > Secrets and variables > Actions**. Create the following four secrets:
+1. **Set Secrets in GitHub:** In your forked repository on GitHub, go to **Settings > Secrets and variables > Actions**. Create the following four **Repository** secrets:
     - `AWS_ACCESS_KEY_ID`: Paste the `AccessKeyId` you received in Step 1.
     - `AWS_SECRET_ACCESS_KEY`: Paste the `SecretAccessKey` you received.
     - `AWS_SESSION_TOKEN`: Paste the `SessionToken` you received.
