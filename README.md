@@ -66,7 +66,7 @@ You will run all commands in a terminal.
 1. Download the official `.pkg` installer:
 
    ```
-   curl "[https://awscli.amazonaws.com/AWSCLIV2.pkg](https://awscli.amazonaws.com/AWSCLIV2.pkg)" -o "AWSCLIV2.pkg"
+   curl https://awscli.amazonaws.com/AWSCLIV2.pkg -o "AWSCLIV2.pkg"
    ```
    
 2. Run the installer:
